@@ -1,0 +1,21 @@
+FROM debian:trixie-slim
+
+RUN apt-get update
+RUN apt-get upgrade && apt-get install -y git-all curl unzip fontconfig
+
+# configure parent docker process inside docker
+
+# install python 3.14
+
+# git config 
+RUN git config --global user.name "Christian"
+RUN git config --global user.email "ch.baczynski@protonmail.com"
+
+RUN apt-get install -y neovim
+
+RUN git clone https://github.com/AstroNvim/template.git $HOME/.config/nvim
+
+CMD ["nvim"]
+
+# TODO
+# add CMD to docker to run tmux script to start dependencies like docker compose stack

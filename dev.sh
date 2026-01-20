@@ -1,10 +1,9 @@
-WORKSPACE_DIR=/home/christianbaczynski
+WORKSPACE_DIR=/home/christian/Dev
 NVIM_CONFIG_DIR=$WORKSPACE_DIR/dev-env/nvim_config
 
 # set ghostty config location to current folde
 XDG_CONFIG_HOME=`pwd`
 export XDG_CONFIG_HOME
-printenv 
 
 CONTAINER_EXISTS=`docker container ls -a | grep dev_env:latest`
 if [[ -n "$CONTAINER_EXISTS" ]]; then 

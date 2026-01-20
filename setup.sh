@@ -3,33 +3,41 @@
 FONT_NAME=GeistMono
 FONT_SETUP=`fc-list | grep $FONT_NAME`
 
-echo "Installing font $FONT_NAME, this will change the font for ALL terminals"
-./fonts.sh $FONT_NAME
+echo "/// Installing font $FONT_NAME, this will change the font for ALL terminals"
+if [[ -z "$FONT_SETUP" ]]; then
+    ./fonts.sh $FONT_NAME
+fi
 
 IMAGE_BUILT=`docker image ls -a | grep "dev_env"`
 if [[ -n "$IMAGE_BUILT" ]]; then 
-    echo "Docker image exists"; 
+    echo "/// Docker image exists"; 
 else
-    echo "Docker image missing, building...";
-    docker build . dev_env:latest 
+    echo "/// Docker image missing, building...";
+    docker build . --tag dev_env:latest 
 fi
 
-echo "Installing terminal emulator Ghostty using snap"
+echo "/// Installing terminal emulator Ghostty using snap"
 # install via snap
 if [[ -z "systemctl --type=service --state=running | grep snapd" ]];   then
     # clean up block snap configuration
-    echo "Installing snap..."
+    echo "/// Installing snap..."
     sudo rm /etc/apt/preferences.d/nosnap.pref
     sudo apt-get install snapd
 fi
 if ! type "ghostty" > /dev/null; then
-    echo "Installing ghostty..."
+    echo "/// Installing ghostty..."
     snap install ghostty --classic
 fi
 
+echo "/// Configuring dev start command"
+DEV_ENV_PATH=`pwd`
+DEV_ENV_PATH="${DEV_ENV_PATH%/*}"
+sed -i "1cWORKSPACE_DIR=$DEV_ENV_PATH" dev.sh
+
 if ! type "dev" > /dev/null; then
-    echo "Creating a link to start dev env as CLI command"
+    echo "/// Creating a link to start dev env as CLI command"
     DEV_ENV_PATH=`pwd`
     cd /usr/local/bin && sudo ln -s $DEV_ENV_PATH/dev.sh dev
 fi
+
 

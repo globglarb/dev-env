@@ -4,18 +4,26 @@
 # nerd font download and config
 FONT_NAME=$1
 
+# check requirements
+if ! type "unzip" > /dev/null; then
+    echo "/// Installing unzip"
+    sudo apt-get update && sudo apt-get install -y unzip
+fi
+
 FONT_SETUP=`fc-list | grep $FONT_NAME`
-if [[ -z "$FONT_SETUP" ]]; then 
+if [[ -z "$FONT_SETUP" ]]; then
+    echo "/// Installing font"
     curl -OL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$FONT_NAME.zip" && mkdir -p  "$HOME/.fonts" && unzip "$FONT_NAME.zip" -d "$HOME/.fonts/$FONT_NAME/" && fc-cache -fv
     rm ${FONT_NAME}.zip
 fi
 
 # install command line configuration for terminal and other config
 if ! type "dconf" > /dev/null; then
-    sudo apt-get update && sudo apt-get install dconf-editor
+    echo "/// Installing dconf"
+    sudo apt-get update && sudo apt-get install -y dconf-editor dconf-cli
 fi
 
-# get terminal profile folder name 
+# get terminal profile folder name
 PROFILE_NAME=`dconf list /org/gnome/terminal/legacy/profiles:/`
 
 # change to nerd font

@@ -13,6 +13,7 @@ RUN curl -OL "https://github.com/tree-sitter/tree-sitter/releases/latest/downloa
 
 # install python 3.14
 
+
 # git config 
 RUN git config --global user.name "Christian"
 RUN git config --global user.email "ch.baczynski@protonmail.com"

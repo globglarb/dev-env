@@ -1,4 +1,4 @@
-WORKSPACE_DIR=/home/christianbaczynski
+WORKSPACE_DIR=/home/christian/Dev
 NVIM_CONFIG_DIR=$WORKSPACE_DIR/dev-env/nvim_config
 GHOSTTY_CONFIG=$WORKSPACE_DIR/dev-env/ghostty/config
 
@@ -10,6 +10,7 @@ if [[ -n "$CONTAINER_EXISTS" ]]; then
 else
     echo "/// Running new container"
     echo $NVIM_CONFIG_DIR $WORKSPACE_DIR
-    ghostty --window-height=65 --window-width=220 -e docker run --volume $NVIM_CONFIG_DIR:/root/.config/nvim --volume $WORKSPACE_DIR:/workspace -w /workspace -it dev_env:latest
+    # XDG_DATA_HOME is set to a folder mounted into the container as for some reason trash-cli fails when trying to save trash, seems it tries to write to the host root (no permission) instead of the docker root
+    ghostty --window-height=65 --window-width=220 -e docker run --volume $NVIM_CONFIG_DIR:/root/.config/nvim --volume $WORKSPACE_DIR:/workspace -e XDG_DATA_HOME=/workspace/ -w /workspace -it dev_env:latest
 fi
 

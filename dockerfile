@@ -1,8 +1,9 @@
 FROM debian:trixie-slim
 
 RUN apt-get update
+
 # linux dependencies and tools
-RUN apt-get upgrade && apt-get install -y git-all curl gzip gcc wget unzip
+RUN apt-get upgrade && apt-get install -y --fix-missing git-all curl gzip gcc wget unzip trash-cli
 
 # some search tools and a terminal git interface
 RUN apt-get install -y fzf fd-find ripgrep lazygit
@@ -12,7 +13,6 @@ RUN curl -OL "https://github.com/tree-sitter/tree-sitter/releases/latest/downloa
 # configure parent docker process inside docker
 
 # install python 3.14
-
 
 # git config 
 RUN git config --global user.name "Christian"

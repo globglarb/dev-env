@@ -5,6 +5,7 @@ s: seek
 v: visual
 z: z mode for scrolling
 f: find mode
+space: space mode
 
 : command mode
 - tab and shift-tab to pick from selection
@@ -34,7 +35,25 @@ f/t mode
 f + characters: highlight searched chars
 number + f in find mode: jump to n instance
 t + characters: highlight same as f
-number + t: move cursor to before n instance
+number + t: move curor to before n instance
+
+file picker (space space)
+alt+s shows letters to pick file before paths, allows to seek
+tab selects multiple files
+space + f F: pick files from cwd
+ctrl+f/b scroll preview 
+ctrl+d/u scroll file list
+
+explorer
+space + e open root directory
+space + E open cwd
+d when file is selected to delete file
+a to create new file or folder when ending in /
+r to rename
+y/p to yank and put a file somewhere else
+m move file to cursor location after selecting with tab
+P toggle preview
+ctrl+T terminal
 
 plugins
 flash.nvim: cursor navigation by searching letters 

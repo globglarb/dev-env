@@ -1,0 +1,41 @@
+modes
+i: insert
+s: seek
+: command 
+v: visual
+z: z mode for scrolling
+f: find mode
+
+: command mode
+- tab and shift-tab to pick from selection
+- space to pick or ctrl+y 
+- number: go to line number
+
+normal mode
+o: insert new line
+O: insert new line above
+shift+$: move cursor to end of line
+number + hjkl: move cursor number lines/characters
+w: next word
+e: end of word
+b: backwards word
+WEB: move to next/end/backwards whitespace delimited word ignoring special characters
+A: end of line
+I: beginning of line
+^: move cursor to beginning of first word
+ctrl+o/i: jump to previous/next cursor position
+
+z mode
+z enter or zt: scroll current line to top
+zz: scroll line to center
+zb: scroll line to bottom
+
+f/t mode
+f + characters: highlight searched chars
+number + f in find mode: jump to n instance
+t + characters: highlight same as f
+number + t: move cursor to before n instance
+
+plugins
+flash.nvim: cursor navigation by searching letters 
+snacks.nvim: lots of small plugins

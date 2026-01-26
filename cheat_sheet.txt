@@ -25,6 +25,25 @@ A: end of line
 I: beginning of line
 ^: move cursor to beginning of first word
 ctrl+o/i: jump to previous/next cursor position
+number-i-text-escape: insert text number times
+c: like delete but enter insert mode
+D/C: delete to end of line, C enters insert mode
+x: delete character under cursor
+J: join lines
+gUmotion: uppercase line/word
+gUaw: uppercase inside word with a for around
+~: toggle case of character
+.: repeat last command
+qq: start recording command, q to stop recording
+(): navigate by sentence / paragraph
+{}: navigate by paragraph explicitly
+%: jump to matching bracket backwards or forwards
+[{: backwards match curly bracket from inside block
+[%/]%: jump to matching bracket inside block
+[[: jump to prev reference of a variable or function
+]]: jump to next reference of a variable or function
+]i/[i: go to matching indentation
+]d/[d: navigate to diagnostics, replace with e for errors and w for warnings
 
 z mode
 z enter or zt: scroll current line to top
@@ -35,14 +54,14 @@ f/t mode
 f + characters: highlight searched chars
 number + f in find mode: jump to n instance
 t + characters: highlight same as f
-number + t: move curor to before n instance
+number + t: move cursor to before n instance
 
 file picker (space space)
 alt+s shows letters to pick file before paths, allows to seek
 tab selects multiple files
 space + f F: pick files from cwd
 ctrl+f/b scroll preview 
-ctrl+d/u scroll file list
+ctrl+d/u scroll file list d down an u up
 
 explorer
 space + e open root directory
@@ -58,3 +77,4 @@ ctrl+T terminal
 plugins
 flash.nvim: cursor navigation by searching letters 
 snacks.nvim: lots of small plugins
+:LazyExtras to list plugins, x to install or uninstall depending on status

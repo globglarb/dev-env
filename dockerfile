@@ -3,7 +3,8 @@ FROM debian:trixie-slim
 RUN apt-get update
 
 # linux dependencies and tools
-RUN apt-get upgrade && apt-get install -y --fix-missing git-all curl gzip gcc wget unzip trash-cli
+# ncurses is a TUI library
+RUN apt-get upgrade && apt-get install -y --fix-missing git-all curl gzip gcc wget unzip trash-cli ncurses-term
 
 # some search tools and a terminal git interface
 RUN apt-get install -y fzf fd-find ripgrep lazygit

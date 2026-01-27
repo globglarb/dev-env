@@ -13,6 +13,12 @@ space: space mode
 - number: go to line number
 - e: reload window
 
+visual mode
+o: move cursor to ends of selection
+V: line wise visual mode
+ctrl+v: block wise visual mode
+I/A + block selection: add to each line of block
+
 normal mode
 o: insert new line
 O: insert new line above
@@ -50,6 +56,12 @@ c number i/a object: will delete surrounding number objects
 n / l in operation mode to select next previous object without need for navigation
 operator pending mode + S enter seek mode for objects
 gsaa/i object character: surround append to add brackets, quotes, etc.
+" letter + motion: save letter register whatever was deleted / yanked / changed
+"0: last yank register
+"%: filepath
+]p/[p: paste above or below with indentation
+p[y...: paste and go through registers
+H/L: selecte left/right buffer, works with count
 
 z mode
 z enter or zt: scroll current line to top

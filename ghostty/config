@@ -1,2 +1,7 @@
 font-family = GeistMono Nerd Font
 font-size = 14
+
+# Allow programs to write to the system clipboard (Copying)
+clipboard-write = allow
+clipboard-read = allow
+copy-on-select = clipboard

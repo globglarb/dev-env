@@ -11,6 +11,7 @@ space: space mode
 - tab and shift-tab to pick from selection
 - space to pick or ctrl+y 
 - number: go to line number
+- e: reload window
 
 normal mode
 o: insert new line
@@ -37,13 +38,18 @@ gUaw: uppercase inside word with a for around
 qq: start recording command, q to stop recording
 (): navigate by sentence / paragraph
 {}: navigate by paragraph explicitly
-%: jump to matching bracket backwards or forwards
+%: jump to matching bracket backwards or forwards or next open bracket
 [{: backwards match curly bracket from inside block
 [%/]%: jump to matching bracket inside block
 [[: jump to prev reference of a variable or function
 ]]: jump to next reference of a variable or function
 ]i/[i: go to matching indentation
 ]d/[d: navigate to diagnostics, replace with e for errors and w for warnings
+[h/]h: jump between git changes
+c number i/a object: will delete surrounding number objects
+n / l in operation mode to select next previous object without need for navigation
+operator pending mode + S enter seek mode for objects
+gsaa/i object character: surround append to add brackets, quotes, etc.
 
 z mode
 z enter or zt: scroll current line to top

@@ -18,6 +18,7 @@ RUN curl -OL "https://github.com/tree-sitter/tree-sitter/releases/latest/downloa
 # git config 
 RUN git config --global user.name "Christian"
 RUN git config --global user.email "ch.baczynski@protonmail.com"
+RUN git config --global --add safe.directory '*'
 
 # install latest stable neovim
 RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && tar -xzf nvim-linux-x86_64.tar.gz && tar -C /opt -xzf nvim-linux-x86_64.tar.gz 

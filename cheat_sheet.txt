@@ -62,6 +62,10 @@ gsaa/i object character: surround append to add brackets, quotes, etc.
 ]p/[p: paste above or below with indentation
 p[y...: paste and go through registers
 H/L: selecte left/right buffer, works with count
+space bb: switch to other buffer
+space comma: buffer picker
+esc in input field in picker switches to selection window 
+space .: scratch buffer
 
 z mode
 z enter or zt: scroll current line to top

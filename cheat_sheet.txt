@@ -66,6 +66,9 @@ space bb: switch to other buffer
 space comma: buffer picker
 esc in input field in picker switches to selection window 
 space .: scratch buffer
+space bo: close other buffers
+space bl: close buffers to the left
+space br: close buffers to the right
 
 z mode
 z enter or zt: scroll current line to top

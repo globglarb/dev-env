@@ -13,6 +13,6 @@ else
   echo "/// Running new container"
   echo $NVIM_CONFIG_DIR $WORKSPACE_DIR
   # XDG_DATA_HOME is set to a folder mounted into the container as for some reason trash-cli fails when trying to save trash, seems it tries to write to the host root (no permission) instead of the docker root
-  cghostty+="-e docker run --volume $NVIM_CONFIG_DIR:/root/.config/nvim --volume $WORKSPACE_DIR:/workspace --volume /snap/ghostty/current/share/terminfo:/lib/terminfo -e XDG_DATA_HOME=/workspace/ -e TERMINFO=/lib/terminfo -e TERM=xterm-ghostty -w /workspace -it dev_env:latest"
+  cghostty+="-e docker run --volume /var/run/docker.sock:/var/run/docker.sock --volume $NVIM_CONFIG_DIR:/root/.config/nvim --volume $WORKSPACE_DIR:/workspace --volume /snap/ghostty/current/share/terminfo:/lib/terminfo -e XDG_DATA_HOME=/workspace/ -e TERMINFO=/lib/terminfo -e TERM=xterm-ghostty -w /workspace -it dev_env:latest"
   eval $cghostty
 fi

@@ -69,6 +69,25 @@ space .: scratch buffer
 space bo: close other buffers
 space bl: close buffers to the left
 space br: close buffers to the right
+space wh/l/j/k: move to window left, right, down, up
+ctrl+h/l/j/k: move to window left right down up
+space wd: delete window
+space wv: split window with current content
+space ws: split window horizontally
+ctrl+v: when selecting files, open in vertical split
+ctrl+s: when selecting files, open in horizontal split
+space+w+space: open multiple windows in a row,
+space tab tab: open new tab
+gt/gT: next previous Tab, works with numbers 
+3gt: select tab 3 
+zc: collapse current fold
+zo: open current fold
+za: toggle fold
+zR: open all closed folds
+space qq: close all
+space qS: show all sessions
+space snh: notification history
+space uw: enable line wrap
 
 z mode
 z enter or zt: scroll current line to top
@@ -77,7 +96,7 @@ zb: scroll line to bottom
 
 f/t mode
 f + characters: highlight searched chars
-number + f in find mode: jump to n instance
+number 
 t + characters: highlight same as f
 number + t: move cursor to before n instance
 

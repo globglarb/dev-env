@@ -1,7 +1,8 @@
-font-family = GeistMono Nerd Font
-font-size = 14
-
-# Allow programs to write to the system clipboard (Copying)
+# used to allow osc 52 without prompt
 clipboard-write = allow
 clipboard-read = allow
 copy-on-select = clipboard
+
+font-family = GeistMono Nerd Font
+font-size = 10
+

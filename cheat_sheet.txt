@@ -88,6 +88,7 @@ space qq: close all
 space qS: show all sessions
 space snh: notification history
 space uw: enable line wrap
+space ft: terminal
 
 z mode
 z enter or zt: scroll current line to top

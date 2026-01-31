@@ -1,5 +1,4 @@
-modes
-i: insert
+modes i: insert
 s: seek
 : command 
 v: visual
@@ -89,6 +88,8 @@ space qS: show all sessions
 space snh: notification history
 space uw: enable line wrap
 space ft: terminal
+space+ww: cycle windows
+paste in terminal: ctrl+shift+v
 
 z mode
 z enter or zt: scroll current line to top

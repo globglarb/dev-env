@@ -1,3 +1,4 @@
+# spider allows to detect words in camel case and snake case
 return {
   "chrisgrieser/nvim-spider",
   opts = {},

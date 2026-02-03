@@ -4,5 +4,5 @@ clipboard-read = allow
 copy-on-select = clipboard
 
 font-family = GeistMono Nerd Font
-font-size = 14
+font-size = 12
 

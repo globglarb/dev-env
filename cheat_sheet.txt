@@ -61,7 +61,7 @@ gsaa/i object character: surround append to add brackets, quotes, etc.
 ]p/[p: paste above or below with indentation
 p[y...: paste and go through registers
 H/L: selecte left/right buffer, works with count
-space bb: switch to other buffer
+spme bb: switch to other buffer
 space comma: buffer picker
 esc in input field in picker switches to selection window 
 space .: scratch buffer
@@ -90,8 +90,29 @@ space uw: enable line wrap
 space ft: terminal
 space+ww: cycle windows
 paste in terminal: ctrl+shift+v
+space cm: mason
+i in mason over plugin installs
+space cd: display diagnostic, close with navigation key 
+space ca: code action
+space x: quickfix menu provided by Trouble plugin
+]q[q: move between troubles and buffers
+space xx: show diagnostics in project
+gd: goto definition
+gr: goto reference/usage shows picker
+K: show hover text, K again jump into hover, q to exit hover
+space cr: rename all references
+space ss: symbol search
+alt+t in picker: add to quickfix list
+ctrl+q: add selected to quickfix list
+space cs: show symbol tree
+m+letter: set mark, capital letter for global mark
+'letter: jump to mark with letter
+:delmarks letter: to delete mark
+'.: go to last insertion
+'< or '>: go beginning or end of last selection
+\C in search to turn on case sensitive search
+space sg/G: search in root directory / workspace directory
 
-z mode
 z enter or zt: scroll current line to top
 zz: scroll line to center
 zb: scroll line to bottom
@@ -123,4 +144,22 @@ ctrl+T terminal
 plugins
 flash.nvim: cursor navigation by searching letters 
 snacks.nvim: lots of small plugins
+
+ammend signature with recording approach
+4. The "Macro" Approach
+If you have 10–20 instances and want total control:
+
+Search for the function: /myFunction(.
+
+Start recording a macro: qq.
+
+Find the closing parenthesis: f).
+
+Insert the argument: i, new_arg<Esc>.
+
+Move to the next occurrence: n.
+
+Stop recording: q.
+
+Play it back until done: 99@q.
 :LazyExtras to list plugins, x to install or uninstall depending on status

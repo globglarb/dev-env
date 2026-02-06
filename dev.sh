@@ -2,6 +2,7 @@ WORKSPACE_DIR=/home/christianbaczynski
 NVIM_CONFIG_DIR=$WORKSPACE_DIR/dev-env/nvim_config
 GHOSTTY_CONFIG=$WORKSPACE_DIR/dev-env/ghostty/config
 
+touch $GHOSTTY_CONFIG
 cghostty="ghostty --window-height=65 --window-width=220 --config-file=$GHOSTTY_CONFIG "
 CONTAINER_EXISTS=$(docker container ls -a | grep dev_env:latest)
 if [[ -n "$CONTAINER_EXISTS" ]]; then

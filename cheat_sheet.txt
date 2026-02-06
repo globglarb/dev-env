@@ -112,6 +112,7 @@ m+letter: set mark, capital letter for global mark
 '< or '>: go beginning or end of last selection
 \C in search to turn on case sensitive search
 space sg/G: search in root directory / workspace directory
+g ctrl+g: word count information
 
 z enter or zt: scroll current line to top
 zz: scroll line to center

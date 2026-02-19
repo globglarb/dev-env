@@ -113,6 +113,50 @@ m+letter: set mark, capital letter for global mark
 \C in search to turn on case sensitive search
 space sg/G: search in root directory / workspace directory
 g ctrl+g: word count information
+:%/term/replacement substitution in entire file
+  replace in visual selection automatically inserts visual range
+  range can be added at the beginning of a command in the format start,end separator s separator 
+  append separator g to replace all instances of a word 
+  additional flags can be stacked, gc replaces globally with confirmations
+  %sg repeat last search and replace in the whole file 
+space sr: replace in all files 
+  execute with \r
+  in preview individual instances can be deleted or edited \s to sync instead of replace 
+  press enter on preview to open file 
+  \t for history of search replace
+ga: change formatting of word from snake to camel case for example
+  select words separated with space in visual mode and execute gap to convert to Pascal case 
+  :Subs/pattern/replacement replaces words and keeps formatting
+:w filename saves selection to a new file in working directory (not root)
+in command mode, press ctrl+f to show history of commands
+  use navigation or search with ? commands to re-execute
+:norm to apply commands to a range of lines, can do anything
+:%g/pattern/d delete in file any line that matches pattern
+  d can be replaced with a complete substitute command to only replace lines with matching pattern
+  g! negation of pattern
+:%g/pattern/norm <some keystrokes> norm allows to enter normal commands in command mode
+dwwP: delete word, move word and insert (good for switching arguments)
+gc: toggle / add comments
+  can be combined with tresitter S 
+  use gcap to comment paragraph or other object
+  5gcc comment out 5 lines
+ctrl+a increment, ctrl+x decrement
+  works for words like second and months and true / false, semantic version
+g ctrl+a: increment consecutive line numbers (line enumeration)
+g ctrl+x: decrement consecutive line numbers (line enumeration)
+>> <<: indent, dedent
+  >Sx: indent entity
+  >ap: indent paragraph
+  v5>: indent line 5 times
+gww: wrap line
+  gwip: wrap paragraph
+visual selection and ! to pipe it to any external tool, like jq or a Python script
+space us: toggle spell check
+ös / äs: go to next spell check
+z=: spelling suggestions
+arrow keys in suggestions and enter to select snippet or completion
+  in snippet use tab to move between selections
+  ctrl+space in insert mode to show suggestions
 
 z enter or zt: scroll current line to top
 zz: scroll line to center

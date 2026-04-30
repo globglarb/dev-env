@@ -1,4 +1,4 @@
-WORKSPACE_DIR=/home/christianbaczynski
+WORKSPACE_DIR=/home/christian/Dev
 NVIM_CONFIG_DIR=$WORKSPACE_DIR/dev-env/nvim_config
 GHOSTTY_CONFIG=$WORKSPACE_DIR/dev-env/ghostty/config
 

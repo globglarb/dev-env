@@ -1,0 +1,26 @@
+# Plugins
+flash.nvim # seek mode
+  s - enter seek mode
+  operator pending mode + S - enter seek mode in operation
+
+which-key plugin
+  any character + wait time - pops up space menu for this key
+  space - open top level keys
+
+nvim-spider
+  use web commands on snake and camelcase etc.
+
+snacks.nvim
+  file picker and many other small plugins
+
+bufferline.nvim
+  shows open buffers
+
+# Management
+:LazyExtras - LazyVim extras
+  x - install extra
+  provides language extras 
+  documentation - https://www.lazyvim.org/extras
+
+space + fc - show all configuration files
+LazyVim loads all files from lua/plugins folder

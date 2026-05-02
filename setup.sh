@@ -16,17 +16,21 @@ else
   docker build . --tag dev_env:latest
 fi
 
-echo "/// Checking ghostty"
-# install via snap
-if ! systemctl --type=service --state=running | grep -q snapd; then
-  # clean up block snap configuration
-  echo "/// Installing snap..."
-  sudo rm /etc/apt/preferences.d/nosnap.pref
-  sudo apt-get install snapd
-fi
-if ! type "ghostty" >/dev/null; then
-  echo "/// Installing ghostty..."
-  snap install ghostty --classic
+#echo "/// Checking ghostty"
+## install via snap
+#if ! systemctl --type=service --state=running | grep -q snapd; then
+#  # clean up block snap configuration
+#  echo "/// Installing snap..."
+#  sudo rm /etc/apt/preferences.d/nosnap.pref
+#  sudo apt-get install snapd
+#fi
+#if ! type "ghostty" >/dev/null; then
+#  echo "/// Installing ghostty..."
+#  snap install ghostty --classic
+#fi
+if ! type "kitty" >/dev/null; then
+  echo "/// Installing kitty..."
+  sudo apt-get install kitty
 fi
 
 echo "/// Configuring dev start command"

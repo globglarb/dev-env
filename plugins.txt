@@ -1,5 +1,5 @@
 # Plugins
-flash.nvim # seek mode
+flash.nvim - seek mode
   s - enter seek mode
   operator pending mode + S - enter seek mode in operation
 
@@ -15,6 +15,12 @@ snacks.nvim
 
 bufferline.nvim
   shows open buffers
+
+yanky.nvim
+  picker for text in clipboard
+
+# Interesting Plugins
+undotree - visualized neovim undo operations and navigate branches
 
 # Management
 :LazyExtras - LazyVim extras

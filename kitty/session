@@ -1,0 +1,10 @@
+# Create the "main" window and run an editor in it to edit the project files
+new_tab complex tab
+layout splits
+#launch --title "Claude" --location=vsplit --var window=first
+launch --title "Workspace" docker start -i CONTAINER_ID
+# not working in current kitty version
+##focus_matching_window var:window=first
+##resize_window narrower 40
+
+#resize_window wider 40

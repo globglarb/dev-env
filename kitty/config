@@ -1,0 +1,15 @@
+font_family GeistMono Nerd Font
+font_size 12.0
+
+remember_window_size  no
+initial_window_width  250c
+initial_window_height 60c
+
+clipboard_control write-clipboard write-primary read-clipboard read-primary
+clipboard_max_size 512
+copy_on_select yes
+
+map shift+ctrl+h neighboring_window left
+map shift+ctrl+l neighboring_window right
+map shift+ctrl+k neighboring_window up
+map shift+ctrl+j neighboring_window down

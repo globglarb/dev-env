@@ -13,79 +13,125 @@ space: space mode
 - e: reload window
 
 visual mode
-o: move cursor to ends of selection
-V: line wise visual mode
-ctrl+v: block wise visual mode
-I/A + block selection: add to each line of block
+  o: move cursor to ends of selection
+  V: line wise visual mode
+  ctrl+v: block wise visual mode
+  I/A + block selection: add to each line of block
 
-normal mode
-r: replace character and go back to normal mode
-^: move to first character after indentation
-space + fc: open config file
-o: insert new line
-O: insert new line above
-shift+$: move cursor to end of line
-number + hjkl: move cursor number lines/characters
-w: next word
-e: end of word
-b: backwards word
-WEB: move to next/end/backwards whitespace delimited word ignoring special characters
-A: append to end of line
-I: beginning of line
-^: move cursor to beginning of first word
-ctrl+o/i: jump to previous/next cursor position
-number-i-text-escape: insert text number times
-c: like delete but enter insert mode
-D/C: delete to end of line, C enters insert mode
-x: delete character under cursor
-number + x: delete number characters after cursor
-X: delete backwards
-J: join lines
-gJ: join lines without modifying whitespace
-gUmotion: uppercase line/word
-gUU / guu: apply case to whole line
-gUaw: uppercase inside word with a for around
-~: toggle case of character
-.: repeat last command
-qq: start recording command, q to stop recording
-(): navigate by sentence / paragraph
-{}: navigate by paragraph explicitly
-%: jump to matching bracket backwards or forwards or next open bracket
-[{: backwards match curly bracket from inside block
-[%/]%: jump to matching bracket inside block
-[[: jump to prev reference of a variable or function
-]]: jump to next reference of a variable or function
-]i/[i: go to matching indentation
-]d/[d: navigate to diagnostics, replace with e for errors and w for warnings
-[h/]h: jump between git changes
-c number i/a object: will delete surrounding number objects
-n / l in operation mode to select next previous object without need for navigation
-operator pending mode + S enter seek mode for objects
-gsaa/i object character: surround append to add brackets, quotes, etc.
-" letter + motion: save letter register whatever was deleted / yanked / changed
-"0: last yank register
-"%: filepath
-]p/[p: paste above or below with indentation
-p[y...: paste and go through registers
-H/L: selected left/right buffer, works with count
-space bb: switch to other buffer
-space comma: buffer picker
-esc in input field in picker switches to selection window 
-space .: scratch buffer
-space bo: close other buffers
-space bl: close buffers to the left
-space br: close buffers to the right
-space wh/l/j/k: move to window left, right, down, up
-ctrl+h/l/j/k: move to window left right down up
-space wd: delete window
-space wv: split window with current content
-space ws: split window horizontally
-ctrl+v: when selecting files, open in vertical split
-ctrl+s: when selecting files, open in horizontal split
-space+w+space: open multiple windows in a row,
-space tab tab: open new tab
-gt/gT: next previous Tab, works with numbers 
-3gt: select tab 3 
+basic editing and motions
+  r: replace character and go back to normal mode
+  ^: move to first character after indentation
+  space + fc: open config file
+  o: insert new line
+  O: insert new line above
+  shift+$: move cursor to end of line
+  number + hjkl: move cursor number lines/characters
+  w: next word
+  e: end of word
+  b: backwards word
+  WEB: move to next/end/backwards whitespace delimited word ignoring special characters
+  A: append to end of line
+  I: beginning of line
+  ^: move cursor to beginning of first word
+  ctrl+o/i: jump to previous/next cursor position
+  number-i-text-escape: insert text number times
+  c: like delete but enter insert mode
+  D/C: delete to end of line, C enters insert mode
+  x: delete character under cursor
+  number + x: delete number characters after cursor
+  X: delete backwards
+  J: join lines
+  gJ: join lines without modifying whitespace
+  gUmotion: uppercase line/word
+  gUU / guu: apply case to whole line
+  gUaw: uppercase inside word with a for around
+  ~: toggle case of character
+  .: repeat last command
+  qq: start recording command, q to stop recording
+    q is the register it saves to
+  Q: to replay recording
+  @register: play back recording from specific register
+  @@: play last played recording (not last recorded which is Q)
+
+object editing and motions
+  (): navigate by sentence / paragraph
+  {}: navigate by paragraph explicitly
+  %: jump to matching bracket backwards or forwards or next open bracket, remapped to -
+  [{: backwards match curly bracket from inside block on same level
+  [%/]%: jump to matching bracket inside block
+  [[: jump to prev reference of a variable or function, aliased to öö
+  ]]: jump to next reference of a variable or function, aliased to ää
+  ]c ]f ]m: jump to next class, function, method
+  ]s/[s: jump to misspelling
+  ]i/[i: jump out of current indentation
+  ]d/[d: navigate to diagnostics, replace with e for errors and w for warnings
+  [h/]h: jump between git changes
+  d + a/i + object: d enters operator pending mode, 
+    a or i for around or inside the object, object can be word, sentence, paragraph, brackets, *, _, ...
+    c for class/type, f function/method, o object, t tag, i scope
+  d + a/i b: use nearest bracket
+  d + count + a/i + object: from inside select count surrounding objects
+  yig: yank whole file
+  cag: delete all contents
+  c number i/a object: will delete surrounding number objects
+  n / l in operation mode to select next previous object without need for navigation
+    needs manual counting and object awareness
+  operator pending mode + S enter seek mode for objects
+  operator pending mode + R or r:
+    remote seek mode r for moving cursor temporary and entering operator pending mode again <- seems to have a bug
+    R for selecting matching objects by string
+  gsa a/i object character: surround append to add brackets, quotes, etc., gsa is the verb
+  gsa + S: seek mode
+  gsa + motion: surround after motion
+  gsd + object: delete surrounding object
+  count + gsd: delete count parent object
+  gsr + object: replace surrounding object
+  gsa + a/i + t: surround with html tag
+
+clipboard
+  p: put copied text in place of cursor
+  y: yank line
+  d/c: deletes line and copies to clipboard
+  y + R + selection + p: yank object and copy to cursor position
+  " letter + motion: save letter register whatever was deleted / yanked / changed
+    for example "ad3w saves three deleted words in register a
+    "ap pastes the deleted words from register
+    capital letter A appends to a register, useful when copying parts of a combined structure
+  ": shows all registers
+  space + s + ": picker for registers
+  space + p: yank history picker
+  "0: last yank register, only yank not delete or change
+  ".p: insert last inserted text saved in register .
+  "%: filepath
+  ]p/[p: paste above or below with indentation
+  p[y...: paste and go through registers
+
+buffers, windows, sessions, tabs
+  H/L: selected left/right buffer, works with count
+  space bb: switch to other buffer
+  space comma: buffer picker
+    esc in input field in picker switches to selection window 
+    ctrl+x to close buffer in picker 
+  space bd: delete buffer
+  delete: delete buffer
+  space .: scratch buffer
+  space + S: scratch buffer picker
+  space bo: close other buffers
+  space bl: close buffers to the left
+  space br: close buffers to the right
+  space wh/l/j/k: move to window left, right, down, up
+  ctrl+h/l/j/k: move to window left right down up
+  space wd: delete window
+  space wv: split window with current content vertically
+    once split open new file or use H/L to select buffer to display
+  space ws: split window horizontally
+  ctrl+v: when selecting files, open in vertical split
+  ctrl+s: when selecting files, open in horizontal split
+  space+w+space: open multiple windows in a row,
+  space tab tab: open new tab
+  gt/gT: next previous Tab, works with numbers 
+  3gt: select tab 3 
+
 zc: collapse current fold
 zo: open current fold
 za: toggle fold
@@ -171,37 +217,35 @@ zz: scroll line to center
 zb: scroll line to bottom
 
 f/t mode
-f + characters: highlight searched chars
-number + f: move cursor on top of number instance 
-t + characters: highlight same as f
-number + t: move cursor to before n instance
-d2ts: delete til second s
+  f + characters: highlight searched chars
+  number + f: move cursor on top of number instance 
+  t + characters: highlight same as f
+  number + t: move cursor to before n instance
+  d2ts: delete til second s
 
 file picker (space space)
-alt+s shows letters to pick file before paths, allows to seek
-tab selects multiple files
-space + f F: pick files from cwd
-ctrl+f/b scroll preview 
-ctrl+d/u scroll file list d down an u up
+  alt+s shows letters to pick file before paths, allows to seek
+  tab selects multiple files
+  space + f F: pick files from cwd
+  ctrl+f/b scroll preview 
+  ctrl+d/u scroll file list d down an u up
 
 explorer
-space + e open root directory
-space + E open cwd
-d when file is selected to delete file
-a to create new file or folder when ending in /
-r to rename
-c to copy with new filename
-y/p to yank and put a file somewhere else
-m move file to cursor location after selecting with tab
-P toggle preview
-ctrl+T terminal
-backspace: move up from current directory j
+  space + e open root directory
+  space + E open cwd
+  d when file is selected to delete file
+  a to create new file or folder when ending in /
+  r to rename
+  c to copy with new filename
+  y/p to yank and put a file somewhere else
+  m move file to cursor location after selecting with tab
+  P toggle preview
+  ctrl+T terminal
+  backspace: move up from current directory j
+  ctrl+v: when selecting files, open in vertical split
+  ctrl+s: when selecting files, open in horizontal split
 
-plugins
-flash.nvim: cursor navigation by searching letters 
-snacks.nvim: lots of small plugins
-
-ammend signature with recording approach
+amend signature with recording approach
 4. The "Macro" Approach
 If you have 10–20 instances and want total control:
 

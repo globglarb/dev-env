@@ -1,0 +1,10 @@
+# Create the "main" window and run an editor in it to edit the project files
+new_tab complex tab
+layout splits
+#launch --title "Claude" --location=vsplit --var window=first
+launch --title "Workspace" docker run --volume /var/run/docker.sock:/var/run/docker.sock --volume $HOME/.ssh:/root/.ssh --volume $NVIM_CONFIG_DIR:/root/.config/nvim --volume $WORKSPACE_DIR:/workspace -e XDG_DATA_HOME=/workspace/ -e TERMINFO=/lib/terminfo -e TERM=xterm-kitty /workspace -it dev_env:latest 
+# not working in current kitty version
+##focus_matching_window var:window=first
+##resize_window narrower 40
+
+#resize_window wider 40

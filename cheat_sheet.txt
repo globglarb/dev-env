@@ -106,7 +106,7 @@ clipboard
   ]p/[p: paste above or below with indentation
   p[y...: paste and go through registers
 
-buffers, windows, sessions, tabs
+buffers, windows, tabs, folds, sessions
   H/L: selected left/right buffer, works with count
   space bb: switch to other buffer
   space comma: buffer picker
@@ -122,61 +122,95 @@ buffers, windows, sessions, tabs
   space wh/l/j/k: move to window left, right, down, up
   ctrl+h/l/j/k: move to window left right down up
   space wd: delete window
+  space wo: close other windows
   space wv: split window with current content vertically
     once split open new file or use H/L to select buffer to display
   space ws: split window horizontally
+  space w=: resize windows to be equal size
+  space+ww: cycle windows
   ctrl+v: when selecting files, open in vertical split
   ctrl+s: when selecting files, open in horizontal split
   space+w+space: open multiple windows in a row,
   space tab tab: open new tab
-  gt/gT: next previous Tab, works with numbers 
+  gt/gT: next/previous Tab, works with numbers 
   3gt: select tab 3 
+  space + tab + d: close tab
+  space +wT: move window to new tab
+  zc: collapse current fold
+  zo: open current fold
+  za: toggle fold
+  zA: toggle all folds under cursoer
+  zM: collapse all folds
+  zR: open all closed folds
+  space qq: close all / close nvim
+  space qS: show all sessions
 
-zc: collapse current fold
-zo: open current fold
-za: toggle fold
-zR: open all closed folds
-space qq: close all
-space qS: show all sessions
-space snh: notification history
-space uw: enable line wrap
-space ft: terminal
-space+ww: cycle windows
-paste in terminal: ctrl+shift+v
-space cm: mason
-i in mason over plugin installs
-space cd: display diagnostic, close with navigation key 
-space ca: code action
-space x: quickfix menu provided by Trouble plugin
-]q[q: move between troubles and buffers
-space xx: show diagnostics in project
-gd: goto definition
-gr: goto reference/usage shows picker
-K: show hover text, K again jump into hover, q to exit hover
-space cr: rename all references
-space ss: symbol search
-alt+t in picker: add to quickfix list
-ctrl+q: add selected to quickfix list
-space cs: show symbol tree
-m+letter: set mark, capital letter for global mark
-'letter: jump to mark with letter
-:delmarks letter: to delete mark
-'.: go to last insertion
-'< or '>: go beginning or end of last selection
-\C in search to turn on case sensitive search
-space sg/G: search in root directory / workspace directory
-g ctrl+g: word count information
-:%/term/replacement substitution in entire file
-  replace in visual selection automatically inserts visual range
-  range can be added at the beginning of a command in the format start,end separator s separator 
-  append separator g to replace all instances of a word 
-  additional flags can be stacked, gc replaces globally with confirmations
-  %sg repeat last search and replace in the whole file 
-space sr: replace in all files 
-  execute with \r
-  in preview individual instances can be deleted or edited \s to sync instead of replace 
-  press enter on preview to open file 
-  \t for history of search replace
+ miscellaneous 
+  space snh: notification history
+  space uw: enable line wrap
+  space ft: terminal
+  paste in terminal: ctrl+shift+v
+
+programming language support
+  space cm: mason
+  i in mason over plugin installs
+  space cd: display diagnostic, close with navigation key, move cursor away
+  space ca: code action
+  space cl: check lsp
+  :lsp restart: restart lsp when issues appear
+  :checkhealth mason: information about installation
+  space x: quickfix menu provided by Trouble plugin
+  ]q[q: move between troubles and open buffers
+  space xx: show diagnostics in project
+  space xX: show buffer diagnostics
+  ctrl+q in picker window: add to quickfix list
+  alt+t in picker window: add to trouble
+  space + ca: code action on diagnostic or error
+    opens picker for actions
+  gd: goto definition
+    del to close buffer, or ctrl+o to move back and keep buffer open
+  gr: goto reference/usage shows picker
+    alt+t to send to trouble to modify all references if needed,
+    or selection with tab
+  K: show hover text,
+    K again jump into hover,
+    q to exit hover
+  space + cr: rename all references
+  space + ss: symbol search
+    like function definitions, class definition, etc. 
+    alt+t in picker: add to quickfix list
+    ctrl+q: add selected to quickfix list
+  space cs: show symbol tree
+    can be seeked
+    scrolls to reference
+    enter in symbol window selects buffer 
+  m+letter: set mark, capital letter for global mark
+  'letter: jump to mark with letter,
+    ' will pop up marks list
+  space + sm: marks picker
+  :delmarks letter: to delete mark
+  '.: go to last insertion
+  '< or '>: go beginning or end of last selection
+    visual selection and : will show selection range
+    for operation like copying to a separate file
+
+searching and replacing
+  \C in search to turn on case sensitive search
+  space sg/G: search in root directory / workspace directory
+    executes grep
+  g ctrl+g: word count information
+  :%/term/replacement substitution in entire file
+    replace in visual selection automatically inserts visual range
+    range can be added at the beginning of a command in the format start,end separator s separator 
+    append separator g to replace all instances of a word 
+    additional flags can be stacked, gc replaces globally with confirmations
+    %sg repeat last search and replace in the whole file 
+  space sr: replace in all files 
+    execute with \r
+    in preview individual instances can be deleted or edited \s to sync instead of replace 
+    press enter on preview to open file 
+    \t for history of search replace
+
 ga: change formatting of word from snake to camel case for example
   select words separated with space in visual mode and execute gap to convert to Pascal case 
   :Subs/pattern/replacement replaces words and keeps formatting
@@ -206,7 +240,8 @@ gww: wrap line
 visual selection and ! to pipe it to any external tool, like jq or a Python script
 space us: toggle spell check
 ös / äs: go to next spell check
-z=: spelling suggestions
+ctrl+n/p: next previous suggestion
+z=: spelling suggestions in space window
 arrow keys in suggestions and enter to select snippet or completion
   in snippet use tab to move between selections
   ctrl+space in insert mode to show suggestions
@@ -229,6 +264,8 @@ file picker (space space)
   space + f F: pick files from cwd
   ctrl+f/b scroll preview 
   ctrl+d/u scroll file list d down an u up
+  alt+t: send to trouble
+  ctrl+q: send to quickfix
 
 explorer
   space + e open root directory

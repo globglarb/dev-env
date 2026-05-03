@@ -22,6 +22,21 @@ yanky.nvim
 # Interesting Plugins
 undotree - visualized neovim undo operations and navigate branches
 
+mason.nvim
+  package manager for coding
+
+Noice
+  for notification pop ups
+
+Trouble
+  enhanced quickfix
+
+conform.nvim
+  formatting plugin
+
+nvim-treesitter-context
+  pin context to top line for large objects
+
 # Management
 :LazyExtras - LazyVim extras
   x - install extra

@@ -19,9 +19,6 @@ bufferline.nvim
 yanky.nvim
   picker for text in clipboard
 
-# Interesting Plugins
-undotree - visualized neovim undo operations and navigate branches
-
 mason.nvim
   package manager for coding
 
@@ -36,6 +33,27 @@ conform.nvim
 
 nvim-treesitter-context
   pin context to top line for large objects
+
+Grug-far.nvim
+  search and replace for files
+
+blink.cmp
+  shows hint and autocompletions
+
+nvim-snippets
+  snippet support, comes with pre-defined snippets
+
+text-case.nvim
+  change word formatting, specifically coding like camel case
+
+editor.dial
+  increment many objects, like true false, dates, etc.
+
+# Interesting Plugins
+undotree - visualized neovim undo operations and navigate branches
+
+nvim-rip-substitute
+  search and replace with grep and regular expressions
 
 # Management
 :LazyExtras - LazyVim extras

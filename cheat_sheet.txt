@@ -17,6 +17,9 @@ visual mode
   V: line wise visual mode
   ctrl+v: block wise visual mode
   I/A + block selection: add to each line of block
+  gv: select last selection
+  v2e: select to end of next two words,
+    works with any motion and seek mode
 
 basic editing and motions
   r: replace character and go back to normal mode
@@ -150,6 +153,51 @@ buffers, windows, tabs, folds, sessions
   space uw: enable line wrap
   space ft: terminal
   paste in terminal: ctrl+shift+v
+  g ctrl+g: word count information
+  ga: change formatting of word from snake to camel case for example
+    select words separated with space in visual mode and execute gap to convert to Pascal case 
+    visual with motions and then ga for words with space
+    :Subs/pattern/replacement replaces words and keeps formatting
+  up arrow in command mode to select previous commands
+  q: - show commands as editable text in a window
+    pressing enter on a line executes the command
+    ctrl+c: close window
+  visual selection and :w filename - saves selection to a new file in working directory (not root)
+  in command mode, press ctrl+f to show history of commands
+    use navigation or search with ? commands to re-execute with enter
+    ctrl+c to exit
+  xp: delete and insert for swapped characters
+  dwwP: delete word, move word and insert (good for switching arguments)
+  gc: toggle / add comments
+    can be combined with tresitter S 
+    use gcap to comment paragraph or other object
+    5gcc comment out 5 lines, c is single line
+    visual selection can be commented out as well
+    gco/O:new commented line
+  ctrl+a increment, ctrl+x decrement date, number, some incrementable object
+    works for words like second and months and true / false, semantic version
+  g ctrl+a: increment consecutive line numbers (line enumeration)
+    for example list of 1. on each line, command changes it so sequence
+  g ctrl+x: decrement consecutive line numbers (line enumeration)
+  :helpgrep searchterm: search help
+  >> <<: indent, dedent
+    >Sx: indent entity
+    >ap: indent paragraph
+    v5>: indent line 5 times, after visual selection
+  gww: wrap line
+  gwip: wrap paragraph
+  gwig: wrap entire file
+  ! piping: visual selection and p! to pipe it to any external tool,
+    like jq or a Python script with !python script
+  space us: toggle spell check
+  ös / äs: go to next spell check
+  ctrl+n/p: next previous suggestion when writing
+  z=: spelling suggestions in space window
+  snippets shows up when typing in code an matching a construct
+    ctrl+n/p or arrow keys in suggestions and enter to select snippet or completion
+      in snippet use tab to move between selections
+      ctrl+space in insert mode to show suggestions
+  :help <command>
 
 programming language support
   space cm: mason
@@ -173,6 +221,7 @@ programming language support
     alt+t to send to trouble to modify all references if needed,
     or selection with tab
   K: show hover text,
+    shows docs or definition,
     K again jump into hover,
     q to exit hover
   space + cr: rename all references
@@ -195,61 +244,68 @@ programming language support
     for operation like copying to a separate file
 
 searching and replacing
-  \C in search to turn on case sensitive search
+  ü: search in file forward
+    n/N for next/previous match
+  ?: search in file backward
+    n/N for next/previous match
+  \C in search to only search lowercase instead of mixed,
+    can be in any place
   space sg/G: search in root directory / workspace directory
     executes grep
-  g ctrl+g: word count information
-  :%/term/replacement substitution in entire file
-    replace in visual selection automatically inserts visual range
-    range can be added at the beginning of a command in the format start,end separator s separator 
-    append separator g to replace all instances of a word 
-    additional flags can be stacked, gc replaces globally with confirmations
+    not fuzzy search input
+    alt+t / ctrl+q works in this picker
+  space + cr: rename all references
+  :s/pattern/replacement: replace in line
+  :,pattern/s/match/replacement: substitute from current line
+    instead of just first occurrence on a line
+  :%s/term/replacement substitution in entire file
+    % is a range and stands for the whole file
+    append / or separator g to replace all instances of a word
+    append /gc to add confirmations
+    append /I to enforce case
+    instead of just first occurrence on a line
     %sg repeat last search and replace in the whole file 
+  visual selection and :s visual selection is automatically inserted 
+  range can be added at the beginning of a command in the format start,end separator s separator 
+  :%sg: repeat substitution
   space sr: replace in all files 
+    commit before use
+    files filter accepts globbing 
     execute with \r
     in preview individual instances can be deleted or edited \s to sync instead of replace 
     press enter on preview to open file 
     \t for history of search replace
+    g?: help
+  :<range>,norm: execute a number of commands on range
+    can be anything
+    :<range>norm @q - apply recording to range
+  :%g/pattern/command - execute command on the whole file where pattern is matched
+    g stands for global, invert with g! for not matching lines
+    :%g/pattern/d - delete lines where pattern is matched
+    :%g/pattern/s/match/substitute - only substitute on lines where pattern is matched
+    norm works with g as well
 
-ga: change formatting of word from snake to camel case for example
-  select words separated with space in visual mode and execute gap to convert to Pascal case 
-  :Subs/pattern/replacement replaces words and keeps formatting
-:w filename saves selection to a new file in working directory (not root)
-in command mode, press ctrl+f to show history of commands
-  use navigation or search with ? commands to re-execute
-:norm to apply commands to a range of lines, can do anything
-:%g/pattern/d delete in file any line that matches pattern
-  d can be replaced with a complete substitute command to only replace lines with matching pattern
-  g! negation of pattern
-:%g/pattern/norm <some keystrokes> norm allows to enter normal commands in command mode
-dwwP: delete word, move word and insert (good for switching arguments)
-gc: toggle / add comments
-  can be combined with tresitter S 
-  use gcap to comment paragraph or other object
-  5gcc comment out 5 lines
-ctrl+a increment, ctrl+x decrement
-  works for words like second and months and true / false, semantic version
-g ctrl+a: increment consecutive line numbers (line enumeration)
-g ctrl+x: decrement consecutive line numbers (line enumeration)
->> <<: indent, dedent
-  >Sx: indent entity
-  >ap: indent paragraph
-  v5>: indent line 5 times
-gww: wrap line
-  gwip: wrap paragraph
-visual selection and ! to pipe it to any external tool, like jq or a Python script
-space us: toggle spell check
-ös / äs: go to next spell check
-ctrl+n/p: next previous suggestion
-z=: spelling suggestions in space window
-arrow keys in suggestions and enter to select snippet or completion
-  in snippet use tab to move between selections
-  ctrl+space in insert mode to show suggestions
-:help <command> 
+scrolling
+  z enter or zt: scroll current line to top
+  zz: scroll line to center
+  zb: scroll line to bottom
 
-z enter or zt: scroll current line to top
-zz: scroll line to center
-zb: scroll line to bottom
+git integration
+  space + gs: show git status with all changed files
+    works like file picker scoped to git changes
+  space + gl: show git log
+  wrapper for github CLI exists
+
+GitHub interaction
+  space + gi/I for open / closed issues
+    opens a picker with issues, selecting and enter 
+    show actions that can be taken
+  space + gp/P for pull requests, same as issues
+    press enter to show menu to start a preview
+    then use action "view diff for PR"
+    regular scrolling in picker preview with ctrl+f/b
+    alt+w to focus preview and enter to select comment action
+    ctrl+s to submit comment
 
 f/t mode
   f + characters: highlight searched chars

@@ -295,6 +295,21 @@ git integration
     works like file picker scoped to git changes
   space + gl: show git log
   wrapper for github CLI exists
+  space + gh: operation for hunk
+    blame, diff, stage, reset
+  space + ghs/S: stage hunk / buffer
+  space + ghr/R: reset hunk / buffer
+  space + ghu: unstage hunk 
+  space + ghp: show diff preview
+  space + ghb: show last changed line
+  space + ghd/D: show diff / diff ~
+    :diffoff to exit diff mode, 
+    windows will stay open
+    right side is working side, only edit here
+    left is index side, updates on git operation like staging 
+  :diffg / :diffp or dp / do: diff put, diff obtain
+    in merge conflicts accept / reject
+    visual selection for multiple line operations
 
 GitHub interaction
   space + gi/I for open / closed issues

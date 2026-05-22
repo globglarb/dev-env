@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Workflow</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'dark', flowchart: { useMaxWidth: false, htmlLabels: true } });</script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding: 0 2rem;
+    }
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+      padding: 0 2rem;
+    }
+
+    .workflow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .phase-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      border: 1.5px solid;
+      margin-bottom: 1.25rem;
+      width: 100%;
+    }
+    .phase-header.arch { background: #0284c720; color: #38bdf8; border-color: #38bdf8; }
+    .phase-header.eng  { background: #7c22ce20; color: #c084fc; border-color: #c084fc; }
+    .phase-header.test { background: #05966920; color: #4ade80; border-color: #4ade80; }
+    .phase-header.wp   { background: #7c3aed20; color: #a78bfa; border-color: #a78bfa; }
+    .phase-header.user { background: #f59e0b20; color: #fbbf24; border-color: #fbbf24; }
+
+    .phase-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .phase-body .mermaid {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phase-body .mermaid svg text {
+      font-size: 13px !important;
+    }
+
+    .phase-body .mermaid svg .label {
+      font-size: 13px !important;
+    }
+
+    .main-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0.75rem;
+      flex: 0 0 auto;
+      margin-top: 1.45rem;
+    }
+    .main-arrow .shaft { width: 36px; height: 2.5px; background: #64748b; border-radius: 1px; }
+    .main-arrow .head {
+      width: 0; height: 0;
+      border-left: 7px solid #64748b;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      margin-left: -1px;
+    }
+    .main-arrow .arrow-group {
+      display: flex;
+      align-items: center;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Agent Workflow</h1>
+  <p class="subtitle">User &rarr; Work Package &rarr; Architect &rarr; Engineer &rarr; Tester</p>
+
+  <div class="workflow">
+
+    <div class="column">
+      <div class="phase-header user">👤 User</div>
+      <div class="phase-body">
+        <pre class="mermaid">
+flowchart TD
+    A["Submits work package,&lt;br&gt;bug, or document"]
+    B["Reviews proposals&lt;br&gt;&amp; provides feedback"]
+    C{"Approves?"}
+    D["Grants permission&lt;br&gt;to proceed"]
+    A-->B-->C
+    C-. No .->B
+    C-- Yes -->D
+        </pre>
+      </div>
+    </div>
+
+    <div class="main-arrow"><div class="arrow-group"><div class="shaft"></div><div class="head"></div></div></div>
+
+    <div class="column">
+      <div class="phase-header wp">📦 Work Package</div>
+      <div class="phase-body">
+        <pre class="mermaid">
+flowchart TD
+    A["Feature specification&lt;br&gt;document"]
+    B["Broken into tasks&lt;br&gt;for implementation"]
+    A-->B
+        </pre>
+      </div>
+    </div>
+
+    <div class="main-arrow"><div class="arrow-group"><div class="shaft"></div><div class="head"></div></div></div>
+
+    <div class="column">
+      <div class="phase-header arch">🧠 Software Architect</div>
+      <div class="phase-body">
+        <pre class="mermaid">
+flowchart TD
+    A["Receive work pkg,&lt;br&gt;bug, or document"]
+    B["Ignore docs/logs&lt;br&gt;during analysis"]
+    C["Design spec &amp;&lt;br&gt;implementation plan"]
+    D["Break down by:&lt;br&gt;API / DB Schema /&lt;br&gt;Service / Component"]
+    E["Present each change&lt;br&gt;to user for review"]
+    F{"Approved?"}
+    G["Break into parallel&lt;br&gt;tasks for Engineer"]
+    H["Include test scope,&lt;br&gt;not full test code"]
+    I["Use instruction&lt;br&gt;template for agent"]
+    J["Save tasks to&lt;br&gt;/docs/logs/implementation"]
+    K{"Permission to&lt;br&gt;start?"}
+    L["Send tasks in order&lt;br&gt;to Engineer agent"]
+    M["Check responses;&lt;br&gt;report issues to user"]
+    A-->B-->C-->D-->E-->F
+    F-. No .->E
+    F-- Yes -->G-->H-->I-->J-->K
+    K-- Yes -->L-->M
+        </pre>
+      </div>
+    </div>
+
+    <div class="main-arrow"><div class="arrow-group"><div class="shaft"></div><div class="head"></div></div></div>
+
+    <div class="column">
+      <div class="phase-header eng">👨‍💻 Software Engineer</div>
+      <div class="phase-body">
+        <pre class="mermaid">
+flowchart TD
+    A["Read specification&lt;br&gt;carefully"]
+    B{"Ambiguous?"}
+    C["Ask for&lt;br&gt;clarification"]
+    D["Implement per spec"]
+    E["Add missing test&lt;br&gt;infra / packages"]
+    F["Design tests:&lt;br&gt;Unit / API / Integration"]
+    G["Mirror src tree&lt;br&gt;in /tests folder"]
+    H["Test with real values,&lt;br&gt;faulty data, edge cases"]
+    I["Run all tests"]
+    J{"All pass?"}
+    K["Implementation&lt;br&gt;complete"]
+    A-->B
+    B-. Yes .->C
+    C-.->A
+    B-- No -->D-->E-->F-->G-->H-->I-->J
+    J-. No .->D
+    J-- Yes -->K
+        </pre>
+      </div>
+    </div>
+
+    <div class="main-arrow"><div class="arrow-group"><div class="shaft"></div><div class="head"></div></div></div>
+
+    <div class="column">
+      <div class="phase-header arch">🧠 Software Architect (Post)</div>
+      <div class="phase-body">
+        <pre class="mermaid">
+flowchart TD
+    A["Engineer impl.&lt;br&gt;complete"]
+    B["Create testing context&lt;br&gt;(behavior-focused)"]
+    C["Save to&lt;br&gt;/docs/logs/testing"]
+    D{"Permission to&lt;br&gt;run Tester?"}
+    E["Start Tester with&lt;br&gt;testing context"]
+    F["Tester may create&lt;br&gt;e2e tests"]
+    G["Update Agents.md:&lt;br&gt;Goals / Work Packages /&lt;br&gt;Bugs / Structure"]
+    A-->B-->C-->D
+    D-- Yes -->E-->F-->G
+        </pre>
+      </div>
+    </div>
+
+    <div class="main-arrow"><div class="arrow-group"><div class="shaft"></div><div class="head"></div></div></div>
+
+    <div class="column">
+      <div class="phase-header test">🧪 Software Tester</div>
+      <div class="phase-body">
+        <pre class="mermaid">
+flowchart TD
+    A["Receive testing scope&lt;br&gt;&amp; context"]
+    B["Check existing tests;&lt;br&gt;run &amp; review failures"]
+    C{"Has UI?"}
+    D["Navigate UI in browser;&lt;br&gt;do NOT read code"]
+    E["Read code if needed&lt;br&gt;for test design"]
+    F["Design e2e tests:&lt;br&gt;single actions &amp; sequences"]
+    G["Test happy path,&lt;br&gt;bad input, edge cases"]
+    H["Run all tests"]
+    I{"All pass?"}
+    J["Review: requirements&lt;br&gt;change or regression?"]
+    K{"Genuine bug?"}
+    L["Create bug doc in&lt;br&gt;/docs/work_packages/bugs"]
+    M["Save summary to&lt;br&gt;/docs/logs/testing"]
+    N["Update Agents.md&lt;br&gt;testing instructions"]
+    A-->B-->C
+    C-- Yes -->D-->F
+    C-- No -->E-->F
+    F-->G-->H-->I
+    I-- Yes -->M
+    I-. No .->J
+    J-->K
+    K-- Yes -->L-->M
+    K-. No .->H
+    M-->N
+        </pre>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

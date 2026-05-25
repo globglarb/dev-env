@@ -49,11 +49,21 @@ text-case.nvim
 editor.dial
   increment many objects, like true false, dates, etc.
 
+dap.core
+  plugin for debug adapter protocol, base for language debug packages
+
+test.core
+  neotest, plugin for test management and test execution
+
 # Interesting Plugins
 undotree - visualized neovim undo operations and navigate branches
 
 nvim-rip-substitute
   search and replace with grep and regular expressions
+
+chrome-debug-adapter
+  connect to chrome debugger to set frontend breakpoints and debug 
+  in neovim
 
 # Management
 :LazyExtras - LazyVim extras

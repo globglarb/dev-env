@@ -150,6 +150,8 @@ buffers, windows, tabs, folds, sessions
 
  miscellaneous 
   space snh: notification history
+  space sna: notification pane
+    :messages alternative
   space uw: enable line wrap
   space ft: terminal
   paste in terminal: ctrl+shift+v
@@ -311,6 +313,9 @@ git integration
     in merge conflicts accept / reject
     visual selection for multiple line operations
 
+LazyGit
+  
+
 GitHub interaction
   space + gi/I for open / closed issues
     opens a picker with issues, selecting and enter 
@@ -321,6 +326,34 @@ GitHub interaction
     regular scrolling in picker preview with ctrl+f/b
     alt+w to focus preview and enter to select comment action
     ctrl+s to submit comment
+
+Debugger
+  space + d: debugging menu  
+  space + db: set breakpoint
+  space + da: launch menu
+  in debug mode: enter to expand sections (locals / globals)
+    insert mode works in watch expression window
+    locals can be changed with e
+  space + du: hide / show debug UI
+  space + dc: continue
+  space + dO: step over
+  space + di/o: step in / out
+  space + dB: breakpoint with condition
+
+Testing
+  space + t: testing menu
+  space + tt: run tests in open buffer
+  space + tr: run test under cursor
+  space + to: focus error output or open output outside requests
+  space + tO: open output in pane
+  when tests fail, they are added to the trouble list
+  space + tT: run all tests
+  space + ts: summary pane
+    ? for help and shortcuts
+    J/K to move between failed tests in summary window
+    m mark specific tests, R to run marked only
+  space + tw: rerun test on watched buffer
+  space + td: test under cursor run with debugger
 
 f/t mode
   f + characters: highlight searched chars

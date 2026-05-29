@@ -33,13 +33,27 @@ if ! type "kitty" >/dev/null; then
   sudo apt-get install kitty
 fi
 
+if ! type "opencode" >/dev/null; then
+  echo "/// Installing opencode..."
+  curl -fsSL https://opencode.ai/install | bash
+fi
+
+if ! type "vim" >/dev/null; then
+  echo "/// Installing vim..."
+  # gtk3 to allow easy copy to clipboard
+  # used in kitty to read scrollback buffer for copy operations
+  sudo apt-get isntall vim-gtk3
+fi
+
 echo "/// Configuring dev start command"
 DEV_ENV_PATH=$(pwd)
 DEV_ENV_PATH="${DEV_ENV_PATH%/*}"
 sed -i "1cWORKSPACE_DIR=$DEV_ENV_PATH" dev.sh
+sed -i "5s|OPENCODE_CONFIG_DIR=.*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session
+sed -i "5s|OPENCODE_CONFIG_DIR=.*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session.new
 
 if ! type "dev" >/dev/null; then
   echo "/// Creating a link to start dev env as CLI command"
   DEV_ENV_PATH=$(pwd)
-  cd /usr/local/bin && sudo ln -s $DEV_ENV_PATH/dev.sh dev
+  cd /usr/local/bin && sudo ln -s "$DEV_ENV_PATH/dev.sh" dev
 fi

@@ -36,6 +36,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
 
 # Python
 RUN apt-get install -y python3-venv python3-pip
+# install uv
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Docker client
 RUN apt-get install -y \

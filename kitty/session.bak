@@ -1,0 +1,10 @@
+# Create the "main" window and run an editor in it to edit the project files
+new_tab complex tab
+layout splits
+launch --title "Workspace" docker start -i CONTAINER_ID 
+launch --title "OpenCode" --location=vsplit --var window=first --env OPENCODE_CONFIG_DIR=/home/christian/Dev/dev-env/opencode
+# not working in current kitty version
+##focus_matching_window var:window=first
+##resize_window narrower 40
+
+resize_window narrower 40

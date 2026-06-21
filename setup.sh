@@ -52,12 +52,6 @@ sed -i "1cWORKSPACE_DIR=$DEV_ENV_PATH" dev.sh
 sed -i "5s|OPENCODE_CONFIG_DIR=.*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session
 sed -i "5s|OPENCODE_CONFIG_DIR=.*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session.new
 
-# adding custom layout config
-if ! grep -q "custom" /usr/lib/kitty/kitty/layout/interface.py; then
-  echo "/// adding custom layout to kitty install"
-  sudo sed -i "\$r $DEV_ENV_PATH/dev-env/kitty/kitty.py" /usr/lib/kitty/kitty/layout/interface.py
-fi
-
 if ! type "dev" >/dev/null; then
   echo "/// Creating a link to start dev env as CLI command"
   DEV_ENV_PATH=$(pwd)

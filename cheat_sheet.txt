@@ -207,7 +207,7 @@ programming language support
   space cd: display diagnostic, close with navigation key, move cursor away
   space ca: code action
   space cl: check lsp
-  :lsp restart: restart lsp when issues appear
+  :LspRestart: restart lsp when issues appear
   :checkhealth mason: information about installation
   space x: quickfix menu provided by Trouble plugin
   ]q[q: move between troubles and open buffers

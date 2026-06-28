@@ -1,11 +1,11 @@
 # Create the "main" window and run an editor in it to edit the project files
 new_tab complex tab
 layout splits
-launch --title "Workspace" --var window=first docker run --volume /var/run/docker.sock:/var/run/docker.sock --volume $HOME/.ssh:/root/.ssh --volume NVIM_CONFIG_DIR:/root/.config/nvim --volume WORKSPACE_DIR:/workspace -e XDG_DATA_HOME=/workspace/ -e TERMINFO=/lib/terminfo -e TERM=xterm-kitty -w /workspace -it dev_env:latest
-launch --title "Terminal_1" --location=hsplit bash -c 'docker exec -it CONTAINER_ID /bin/bash'
+launch --title "Workspace" --var window=first docker run --volume /var/run/docker.sock:/var/run/docker.sock --volume $HOME/.ssh:/root/.ssh --volume NVIM_CONFIG_DIR:/root/.config/nvim --volume WORKSPACE_DIR:/workspace -p 8501:8501 -e XDG_DATA_HOME=/workspace/ -e TERMINFO=/lib/terminfo -e TERM=xterm-kitty -w /workspace -it dev_env:latest 
+launch --title "Terminal_1" --location=hsplit bash -c "echo 'new container run again to connect to container'"
 resize_window shorter 15
 
-launch --title "Terminal_2" --location=vsplit bash -c 'docker exec -it CONTAINER_ID /bin/bash'
+launch --title "Terminal_2" --location=vsplit bash -c "echo 'new container run again to connect to container'"
 launch --allow-remote-control  bash -c 'kitten @ focus-window --match var:first-window; kitten @ launch --location=vsplit --env OPENCODE_CONFIG_DIR=/home/christian/Dev/dev-env/opencode --dont-take-focus opencode; kitten @ resize-window --increment=45 --axis=horizontal' 
 
 # not working in current kitty version

@@ -27,6 +27,7 @@ RUN rm nvim-linux-x86_64.tar.gz && cd /usr/local/bin && ln -s /opt/nvim-linux-x8
 
 # set env, as $HOME is only available in RUN commands
 ENV HOME=/root
+RUN touch ~/.bashrc && echo 'alias fd="fdfind"' > ~/.bashrc
 COPY nvim_config ${HOME}/.config/nvim
 
 # install language dependencies

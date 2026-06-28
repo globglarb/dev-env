@@ -244,6 +244,8 @@ programming language support
   '< or '>: go beginning or end of last selection
     visual selection and : will show selection range
     for operation like copying to a separate file
+  ctrl + f/b when displaying code hints automatically
+  ctrl + n/p selecting an entry in hover
 
 searching and replacing
   ü: search in file forward

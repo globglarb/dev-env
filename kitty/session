@@ -2,13 +2,15 @@
 new_tab complex tab
 layout splits
 launch --title "Workspace" --var window=first  bash -c 'docker start -i CONTAINER_ID'
-launch --title "Terminal_1" --location=hsplit bash -c 'docker exec -it CONTAINER_ID /bin/bash'
+launch --title "Terminal_1" --location=hsplit bash -c 'sleep 0.5s && docker exec -it CONTAINER_ID /bin/bash'
 resize_window shorter 15
 
-launch --title "Terminal_2" --location=vsplit bash -c 'docker exec -it CONTAINER_ID /bin/bash'
-#launch --type=background --allow-remote-control --env OPENCODE_CONFIG_DIR=/home/christian/Dev/dev-env/opencode bash -c 'kitten @ focus-window --match var:first-window; kitten @ launch --location=vsplit --dont-take-focus;' opencode
-launch --allow-remote-control  bash -c 'kitten @ focus-window --match var:first-window; kitten @ launch --location=vsplit --env OPENCODE_CONFIG_DIR=/home/christian/Dev/dev-env/opencode --dont-take-focus opencode; kitten @ resize-window --increment=45 --axis=horizontal' 
+launch --title "Terminal_2" --location=vsplit bash -c 'sleep 0.5s && docker exec -it CONTAINER_ID /bin/bash'
+#launch --type=background --allow-remote-control --env OPENCODE_CONFIG_DIR=/home/christianbaczynski/dev-env/opencode bash -c 'kitten @ focus-window --match var:first-window; kitten @ launch --location=vsplit --dont-take-focus;' opencode
+focus_matching_window var:window=first
+launch --location=vsplit --env OPENCODE_CONFIG_DIR=/home/christianbaczynski/dev-env/opencode --dont-take-focus opencode 
+resize_window narrower 45
 # not working in current kitty version
-##focus_matching_window var:window=first
+focus_matching_window var:window=first
 
 

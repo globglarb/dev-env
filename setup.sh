@@ -30,8 +30,11 @@ fi
 #fi
 if ! type "kitty" >/dev/null; then
   echo "/// Installing kitty..."
-  sudo apt-get install kitty
+  #sudo apt-get install kitty
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+  sudo ln -sf ~/.local/kitty.app/bin/kitty /usr/bin/kitty
 fi
+
 
 if ! type "opencode" >/dev/null; then
   echo "/// Installing opencode..."
@@ -49,8 +52,8 @@ echo "/// Configuring dev start command"
 DEV_ENV_PATH=$(pwd)
 DEV_ENV_PATH="${DEV_ENV_PATH%/*}"
 sed -i "1cWORKSPACE_DIR=$DEV_ENV_PATH" dev.sh
-sed -i "5s|OPENCODE_CONFIG_DIR=.*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session
-sed -i "5s|OPENCODE_CONFIG_DIR=.*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session.new
+sed -i "s|OPENCODE_CONFIG_DIR=[^ ]*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session
+sed -i "s|OPENCODE_CONFIG_DIR=[^ ]*|OPENCODE_CONFIG_DIR=$DEV_ENV_PATH/dev-env/opencode|" ./kitty/session.new
 
 if ! type "dev" >/dev/null; then
   echo "/// Creating a link to start dev env as CLI command"

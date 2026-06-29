@@ -55,6 +55,9 @@ dap.core
 test.core
   neotest, plugin for test management and test execution
 
+nvim-lsp-file-operationsA
+  allows for renaming imports when file changes
+
 # Interesting Plugins
 undotree - visualized neovim undo operations and navigate branches
 

@@ -8,7 +8,7 @@ resize_window shorter 15
 launch --title "Terminal_2" --location=vsplit bash -c 'sleep 0.5s && docker exec -it CONTAINER_ID /bin/bash'
 
 focus_matching_window var:window=first
-launch --location=vsplit --env OPENCODE_CONFIG_DIR=/home/christianbaczynski/dev-env/opencode --dont-take-focus opencode 
+launch --location=vsplit --env OPENCODE_CONFIG_DIR=/home/christian/Dev/dev-env/opencode --dont-take-focus opencode 
 resize_window narrower 45
 
 

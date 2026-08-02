@@ -4,7 +4,7 @@ RUN apt-get update
 
 # linux dependencies and tools
 # ncurses is a TUI library
-RUN apt-get upgrade && apt-get install -y --fix-missing git-all curl gzip gcc wget unzip trash-cli ncurses-term
+RUN apt-get upgrade -y && apt-get install -y --fix-missing git-all curl gzip gcc wget unzip trash-cli ncurses-term
 
 # some search tools and a terminal git interface
 RUN apt-get install -y fzf fd-find ripgrep lazygit
@@ -52,8 +52,9 @@ RUN apt-get install -y \
   apt-get update && apt-get install -y docker-ce-cli && \
   rm -rf /var/lib/apt/lists/*
 
+# add locale so UTF-8 characters are used
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
 RUN mkdir /workspace
 CMD ["nvim"]
-
-# TODO
-# add CMD to docker to run tmux script to start dependencies like docker compose stack

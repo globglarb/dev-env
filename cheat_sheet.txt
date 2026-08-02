@@ -11,6 +11,8 @@ space: space mode
 - space to pick or ctrl+y 
 - number: go to line number
 - e: reload window
+q: show history, ctrl+c to close
+:r FILE or !command - place contents under cursor
 
 visual mode
   o: move cursor to ends of selection
@@ -23,6 +25,7 @@ visual mode
 
 basic editing and motions
   r: replace character and go back to normal mode
+  R: enter replace mode
   ^: move to first character after indentation
   space + fc: open config file
   o: insert new line

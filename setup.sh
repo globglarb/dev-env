@@ -35,7 +35,6 @@ if ! type "kitty" >/dev/null; then
   sudo ln -sf ~/.local/kitty.app/bin/kitty /usr/bin/kitty
 fi
 
-
 if ! type "opencode" >/dev/null; then
   echo "/// Installing opencode..."
   curl -fsSL https://opencode.ai/install | bash

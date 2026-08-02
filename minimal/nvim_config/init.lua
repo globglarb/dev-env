@@ -11,6 +11,14 @@
 -- test running with neotest
 -- lsp file operations antosha417/nvim-lsp-file-operations
 -- plugin for JSON schema validation / hints
+-- dap status to lualine
+-- install missing LSPs / formatter / linter, bash, docker, markdown, etc.
+-- collapsing fold keymaps
+-- code actions
+-- undo history is cleared on save
+-- replacement for cmdline
+-- show messages and : with output need fix
+
 vim.pack.add({
 	-- file explorer
 	{
@@ -28,10 +36,7 @@ vim.pack.add({
 	-- pickers, LSP goto methods, small improvements (scrolling, buffer deletion, etc.)
 	{ src = "https://github.com/folke/snacks.nvim", version = vim.version.range("2") },
 	-- simple floating command line
-	{
-		src = "https://github.com/VonHeikemen/fine-cmdline.nvim",
-		version = "main",
-	},
+	"https://github.com/rachartier/tiny-cmdline.nvim",
 	-- flash nvim, navigate with search
 	{
 		src = "https://github.com/folke/flash.nvim",
@@ -122,17 +127,6 @@ vim.lsp.config("pyright", {
 	},
 })
 
--- linting
-vim.lsp.config("ruff", {
-	init_options = {
-		settings = {
-			-- Optional editor-side overrides. Everything else comes from pyproject.toml
-			-- lineLength = 100,
-			-- configuration = "~/.config/ruff/ruff.toml",  -- force a specific config file
-		},
-	},
-})
-
 vim.lsp.enable({ "pyright", "ts_ls", "jsonls" })
 -- formatters
 require("conform").setup({
@@ -142,6 +136,7 @@ require("conform").setup({
 		python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
 	},
 	format_on_save = { timeout_ms = 500, lsp_format = "never" },
+	undojoin = true,
 })
 
 -- linters
@@ -150,14 +145,42 @@ require("lint").linters_by_ft = {
 	python = { "ruff" },
 }
 
+-- check when reading / writing
+vim.api.nvim_create_autocmd({ "BufWritePost", "FileType" }, {
+	callback = function()
+		require("lint").try_lint()
+	end,
+})
+
+-- enable virtual text permanently
+-- vim.diagnostic.config({
+-- 	virtual_text = {
+-- 		prefix = "●", -- or "" / false for no prefix
+-- 		spacing = 2,
+-- 		source = true, -- optional: label which source produced the diagnostic
+-- 	},
+-- 	signs = true,
+-- 	underline = true,
+-- 	update_in_insert = false,
+-- })
 -- needed for pinning of function on top etc., other functionality
 require("nvim-treesitter").install({ "python", "typescript", "html", "javascript", "svelte", "xml" })
+
+-- enable treesitter highlighting for installed parsers
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
+
 -- auto tags
 require("nvim-ts-autotag").setup()
 -- autopairs
 require("nvim-autopairs").setup({})
 -- neo-tree
 require("neo-tree").setup({})
+-- vim ui library version 2 needed for cmd line plugin
+require("vim._core.ui2").enable({})
 
 -- dial config for incrementing / decrementing
 -- increment / decrement with dial.nvim
@@ -298,24 +321,37 @@ require("lualine").setup({
 		lualine_a = {
 			"mode",
 			{
-				"recording",
+				function()
+					local reg = vim.fn.reg_recording()
+					if reg == "" then
+						return ""
+					end
+					return "recording @" .. reg
+				end,
 				cond = function()
 					return vim.fn.reg_recording() ~= ""
 				end,
 			},
-			{
-				"debug",
-				cond = function()
-					return vim.o.verbosefile ~= ""
-				end,
-			},
+			-- {
+			-- 	"debug",
+			-- 	cond = function()
+			-- 		return vim.o.verbosefile ~= ""
+			-- 	end,
+			-- },
 		},
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { { "filename", path = 2 }, "filesize" },
 		lualine_x = {
 			{
-				"lsp",
-				icon = "",
+				"lsp_status",
+				icon = " ",
+				symbols = {
+					spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+					done = "✓",
+					separator = " ",
+				},
+				ignore_lsp = {}, -- e.g. { "null-ls" } to skip certain clients
+				show_name = true, -- false = only show spinner/check, not the name
 			},
 			"encoding",
 			"filetype",
@@ -381,6 +417,9 @@ vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ff9e64", bold = true })
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 -- disable surround default mappings
 vim.g.nvim_surround_no_normal_mappings = true
+-- activate undofile for undos after saving
+vim.opt.undofile = true
+
 -- keymaps
 vim.g.mapleader = " "
 -- neo-tree
@@ -493,8 +532,6 @@ end, { desc = "Flash" })
 vim.keymap.set({ "n", "x", "o" }, "S", function()
 	require("flash").treesitter()
 end, { desc = "Flash Treesitter" })
--- commandline
-vim.keymap.set("n", ":", "<cmd>FineCmdline<CR>", { noremap = true, desc = "Floating command line" })
 -- bufferline
 vim.keymap.set("n", "L", function()
 	vim.cmd("bnext " .. vim.v.count1)
@@ -555,46 +592,46 @@ end, { desc = "Toggle wrap" })
 local select = require("nvim-treesitter-textobjects.select")
 local move = require("nvim-treesitter-textobjects.move")
 vim.keymap.set({ "x", "o" }, "af", function()
-	select.select("@function.outer")
+	select.select_textobject("@function.outer", "textobjects")
 end, { desc = "Select around function" })
 vim.keymap.set({ "x", "o" }, "if", function()
-	select.select("@function.inner")
+	select.select_textobject("@function.inner", "textobjects")
 end, { desc = "Select inside function" })
 vim.keymap.set({ "x", "o" }, "ac", function()
-	select.select("@class.outer")
+	select.select_textobject("@class.outer", "textobjects")
 end, { desc = "Select around class" })
 vim.keymap.set({ "x", "o" }, "ic", function()
-	select.select("@class.inner")
+	select.select_textobject("@class.inner", "textobjects")
 end, { desc = "Select inside class" })
 vim.keymap.set({ "x", "o" }, "aa", function()
-	select.select("@parameter.outer")
+	select.select_textobject("@parameter.outer", "textobjects")
 end, { desc = "Select around parameter" })
 vim.keymap.set({ "x", "o" }, "ia", function()
-	select.select("@parameter.inner")
+	select.select_textobject("@parameter.inner", "textobjects")
 end, { desc = "Select inside parameter" })
 vim.keymap.set({ "x", "o" }, "al", function()
-	select.select("@loop.outer")
+	select.select_textobject("@loop.outer", "textobjects")
 end, { desc = "Select around loop" })
 vim.keymap.set({ "x", "o" }, "il", function()
-	select.select("@loop.inner")
+	select.select_textobject("@loop.inner", "textobjects")
 end, { desc = "Select inside loop" })
 vim.keymap.set({ "x", "o" }, "aT", function()
-	select.select("@conditional.outer")
+	select.select_textobject("@conditional.outer", "textobjects")
 end, { desc = "Select around conditional" })
 vim.keymap.set({ "x", "o" }, "iT", function()
-	select.select("@conditional.inner")
+	select.select_textobject("@conditional.inner", "textobjects")
 end, { desc = "Select inside conditional" })
 vim.keymap.set({ "x", "o" }, "ab", function()
-	select.select("@block.outer")
+	select.select_textobject("@block.outer", "textobjects")
 end, { desc = "Select around block" })
 vim.keymap.set({ "x", "o" }, "ib", function()
-	select.select("@block.inner")
+	select.select_textobject("@block.inner", "textobjects")
 end, { desc = "Select inside block" })
 vim.keymap.set({ "x", "o" }, "aC", function()
-	select.select("@comment.outer")
+	select.select_textobject("@comment.outer", "textobjects")
 end, { desc = "Select around comment" })
 vim.keymap.set({ "x", "o" }, "iC", function()
-	select.select("@comment.inner")
+	select.select_textobject("@comment.inner", "textobjects")
 end, { desc = "Select inside comment" })
 
 -- ---- move to next/prev object
@@ -636,3 +673,11 @@ end, { desc = "Prev parameter" })
 vim.keymap.set({ "n", "x", "o" }, "[A", function()
 	move.goto_previous_end("@parameter.inner", "textobjects")
 end, { desc = "Prev parameter end" })
+-- mason
+vim.keymap.set("n", "<leader>cm", "<cmd>Mason<CR>", { desc = "Mason UI (LSP tools)" })
+-- virtual text
+vim.keymap.set("n", "gK", function()
+	vim.diagnostic.config({
+		virtual_lines = not vim.diagnostic.config().virtual_lines,
+	})
+end, { desc = "Toggle diagnostic virtual_lines" })

@@ -13,6 +13,7 @@ space: space mode
 - e: reload window
 q: show history, ctrl+c to close
 :r FILE or !command - place contents under cursor
+:nmap <keys>
 
 visual mode
   o: move cursor to ends of selection

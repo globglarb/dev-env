@@ -7,7 +7,7 @@ KITTY_SESSION_NEW=$WORKSPACE_DIR/dev-env/kitty/session.new
 #TMUX_CONFIG=$WORKSPACE_DIR/dev-env/tmux.conf
 
 #touch $GHOSTTY_CONFIG
-echo "/// Ghostty config location $GHOSTTY_CONFIG"
+#echo "/// Ghostty config location $GHOSTTY_CONFIG"
 #cghostty="ghostty --window-height=65 --window-width=220 --config-file=$GHOSTTY_CONFIG "
 CONTAINER_EXISTS=$(docker container ls -a | grep dev_env:latest)
 if [[ -n "$CONTAINER_EXISTS" ]]; then

@@ -1,0 +1,1 @@
+docker run -it --volume "$HOME/Dev/dev-env/minimal/nvim_config:/root/.config/nvim" --volume "$HOME/Dev/col:/workspace/col" -e TERM=xterm-kitty -w /workspace/col dev-env:minimal

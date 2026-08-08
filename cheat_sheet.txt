@@ -345,6 +345,8 @@ Debugger
   space + dO: step over
   space + di/o: step in / out
   space + dB: breakpoint with condition
+  t in dapui breakpoints to toggle enable / disable
+  o to jump to breakpoint 
 
 Testing
   space + t: testing menu
@@ -392,21 +394,31 @@ explorer
   ctrl+v: when selecting files, open in vertical split
   ctrl+s: when selecting files, open in horizontal split
 
-amend signature with recording approach
-4. The "Macro" Approach
-If you have 10–20 instances and want total control:
 
-Search for the function: /myFunction(.
+diffview
+<tab> / <s-tab>    next / previous file
+<leader>e          focus the file panel
+<leader>b          toggle the file panel
+]c / [c            next / previous hunk  (built-in diff mode)
+do / dp            obtain / put diff hunk (built-in diff mode)
+g<C-x>             cycle through layouts
 
-Start recording a macro: qq.
+In the merge tool (conflict resolution):
 
-Find the closing parenthesis: f).
+]x / [x            next / previous conflict
+<leader>co         choose OURS for this conflict
+<leader>ct         choose THEIRS for this conflict
+<leader>cb         choose BASE for this conflict
+<leader>ca         choose ALL versions for this conflict
+dx                 delete the conflict region
+<leader>cO / cT / cB / cA   same, but for the whole file
+2do / 3do          pull the hunk from OURS / THEIRS (in 3-way diff)
 
-Insert the argument: i, new_arg<Esc>.
+In the file panel:
 
-Move to the next occurrence: n.
-
-Stop recording: q.
-
-Play it back until done: 99@q.
-:LazyExtras to list plugins, x to install or uninstall depending on status
+<CR> / o           open the selected file's diff
+- or s             stage / unstage entry
+S                  stage all
+U                  unstage all
+X                  restore file to the left-side state
+L                  open commit log panel
